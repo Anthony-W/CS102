@@ -1,3 +1,11 @@
+/**
+ * This class implements the reverse method using
+ * a queue/ArrayList
+ *
+ * @author Anthony Wessel
+ * @date   2/12/2018
+ */
+
 package reversal;
 
 import java.util.LinkedList;

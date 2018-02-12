@@ -7,14 +7,6 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import reversal.IterativeReversal;
-import reversal.QueueReversal;
-//import reversal.RecursiveReversal;
-import reversal.ReverseString;
-//import reversal.StackReversal;
-//import reversal.TreeMapReversal;
-//import reversal.VectorReversal;
-
 public class ReversalsTest
 {
     protected ReverseTestBuilder _builder;

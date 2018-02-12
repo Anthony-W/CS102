@@ -22,8 +22,7 @@ public class Main {
 			
 			if (sorted && target.compareTo(list.get(i)) == -1)
 			{
-				return -1;
-			}
+				return -1;			}
 		}
 		
 		return -1;

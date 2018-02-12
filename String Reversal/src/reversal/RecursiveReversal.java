@@ -1,3 +1,11 @@
+/**
+ * This class implements the reverse method as
+ * a recursive method
+ *
+ * @author Anthony Wessel
+ * @date   2/12/2018
+ */
+
 package reversal;
 
 public class RecursiveReversal implements ReverseString

@@ -1,13 +1,9 @@
 /**
- * Write a succinct, meaningful description of the class here.
- * You should avoid wordiness and redundancy. If necessary,
- * additional paragraphs should be preceded by <p>,
- * the html tag for a new paragraph.
+ * This class implements the reverse method using
+ * a char array and an iterative loop
  *
- * <p>Bugs: (a list of bugs and / or other problems)
- *
- * @author <your name>
- * @date   <date of completion>
+ * @author Anthony Wessel
+ * @date   2/12/2018
  */
 
 package reversal;
@@ -16,15 +12,15 @@ public class IterativeReversal implements ReverseString
 {
 	public String reverse(String s)
 	{
-		char[] ary = s.toCharArray();
+		char[] arr = s.toCharArray();
 
-		for (int i = 0; i < ary.length / 2; i++)
+		for (int i = 0; i < arr.length / 2; i++)
 		{
-			char temp = (ary[ary.length - (i + 1)]);
-			ary[ary.length - (i + 1)] = ary[i];
-			ary[i] = temp;
+			char temp = (arr[arr.length - (i + 1)]);
+			arr[arr.length - (i + 1)] = arr[i];
+			arr[i] = temp;
 		}
 
-		return new String(ary);
+		return new String(arr);
 	}
 }

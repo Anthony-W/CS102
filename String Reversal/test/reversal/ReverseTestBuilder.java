@@ -100,7 +100,6 @@ public class ReverseTestBuilder
      */
     private String generateIndividual(int n, int low, int high)
     {
-        // TODO
         String s = "";
 
         for (int i = 0; i < n; i++)
