@@ -11,9 +11,9 @@ public class QueueReversal implements ReverseString
     	
         Queue<Character> queue = new LinkedList<Character>();
         
-        for (int i = 0; i < s.length(); i++)
+        for (int i = s.length()-1; i >= 0 ; i--)
         {
-        	queue.add(s.charAt(s.length()-(i+1)));
+        	queue.add(s.charAt(i));
         }
         
         String result = "";

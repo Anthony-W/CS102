@@ -84,6 +84,6 @@ public class ReversalsTest
     @Test
     public void testReverseTreeMap()
     {
-//        test(new TreeMapReversal());
+        test(new TreeMapReversal());
     }
 }

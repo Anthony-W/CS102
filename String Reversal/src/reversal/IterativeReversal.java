@@ -14,16 +14,17 @@ package reversal;
 
 public class IterativeReversal implements ReverseString
 {
-    public String reverse(String s)
-    {
-        char[] ary = s.toCharArray();
+	public String reverse(String s)
+	{
+		char[] ary = s.toCharArray();
 
-        for (int i = 0; i < ary.length/2; i++) {
-        	char temp = (ary[ary.length - (i+1)]);
-        	ary[ary.length - (i+1)] = ary[i];
-        	ary[i] = temp;
-        }
+		for (int i = 0; i < ary.length / 2; i++)
+		{
+			char temp = (ary[ary.length - (i + 1)]);
+			ary[ary.length - (i + 1)] = ary[i];
+			ary[i] = temp;
+		}
 
-        return new String(ary);
-    }
+		return new String(ary);
+	}
 }
