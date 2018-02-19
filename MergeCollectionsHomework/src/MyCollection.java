@@ -8,7 +8,7 @@ public class MyCollection
 	{
 		if (o == null) return false;
 		if (o.equals(this)) return false;
-		if (o.getClass().equals(Tainted.class)) return false;
+		if (o instanceof Tainted) return false;
 		
 		list.add(o);
 		return true;
