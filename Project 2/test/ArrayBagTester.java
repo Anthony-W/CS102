@@ -1,6 +1,5 @@
 import static org.junit.Assert.*;
 import java.util.NoSuchElementException;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ArrayBagTester
@@ -8,16 +7,12 @@ public class ArrayBagTester
 
 	ArrayBag<Integer> ab;
 
-	@Before
-	public void setUp() throws Exception
-	{
-		//initialize bag
-		ab = new ArrayBag<Integer>(10);
-	}
-
 	@Test
 	public void testIsEmpty()
 	{		
+		//initialize bag
+		ab = new ArrayBag<Integer>(10);
+				
 		//should be empty originally
 		assertTrue(ab.isEmpty());
 		
@@ -33,6 +28,9 @@ public class ArrayBagTester
 	@Test
 	public void testIsFull()
 	{
+		//initialize bag
+		ab = new ArrayBag<Integer>(10);
+				
 		//should not be full originally
 		assertFalse(ab.isFull());
 		
@@ -56,6 +54,9 @@ public class ArrayBagTester
 	@Test
 	public void testSize()
 	{
+		//initialize bag
+		ab = new ArrayBag<Integer>(10);
+		
 		//size should be zero originally
 		assertEquals(ab.size(), 0);
 		
@@ -72,13 +73,16 @@ public class ArrayBagTester
 		for (int i = ab.size() - 1; i >= 0; i--)
 		{
 			ab.remove(i);
-			assertEquals(ab.size(), i + 1);
+			assertEquals(ab.size(), i);
 		}
 	}
 
 	@Test
 	public void testAdd()
 	{
+		//initialize bag
+		ab = new ArrayBag<Integer>(10);
+		
 		//fill the array
 		for (int i = 0; i < ab.size(); i++)
 		{
@@ -100,6 +104,8 @@ public class ArrayBagTester
 	@Test
 	public void testInsert()
 	{
+		//initialize bag
+		ab = new ArrayBag<Integer>(10);
 		boolean successful;
 		
 		//try to insert a 0 at a negative index
@@ -126,11 +132,6 @@ public class ArrayBagTester
 		assertTrue(successful);
 		assertEquals((int)ab.get(0), 1);
 		
-		//TODO: Check if this should be possible or not
-		//successful = ab.insert(9, 5);
-		//assertTrue(successful);
-		//assertEquals((int)ab.get(0), 5);
-		
 		//insert a 2 at the beginning of the bag
 		successful = ab.insert(0, 2);
 		assertTrue(successful);
@@ -150,11 +151,21 @@ public class ArrayBagTester
 		successful = ab.insert(2, 6);
 		assertFalse(successful);
 		
+		//remove 1 element
+		ab.remove(0);
+		
+		//insert a 5 at the last index in the bag
+		successful = ab.insert(9, 5);
+		assertTrue(successful);
+		assertEquals((int)ab.get(9), 5);
+		
 	}
 
 	@Test
 	public void testRemove()
 	{
+		//initialize bag
+		ab = new ArrayBag<Integer>(10);
 		boolean successful;
 		
 		//fill the bag
@@ -162,14 +173,17 @@ public class ArrayBagTester
 			ab.add(i);
 		}
 		
-		//remove the 3 and check that TODO:
+		//remove the 3 and check that all
+		//following items have moved up
 		successful = ab.remove(3);
 		assertTrue(successful);
-		assertEquals((int)ab.get(3), 4); //TODO: should this be a four? or empty?
+		assertEquals((int)ab.get(4), 4);
 		
+		//remove the 0 and check that all
+		//following items have moved up
 		successful = ab.remove(0);
 		assertTrue(successful);
-		assertEquals((int)ab.get(0), 1); //TODO: should this be a 1? or empty?
+		assertEquals((int)ab.get(0), 1);
 		
 		//try to remove a -1, which is
 		//not in the array
@@ -189,6 +203,9 @@ public class ArrayBagTester
 	@Test
 	public void testGet()
 	{	
+		//initialize bag
+		ab = new ArrayBag<Integer>(10);
+		
 		//fill array
 		for (int i = 0; i < 10; i++) {
 			ab.add(i);
