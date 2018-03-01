@@ -36,7 +36,7 @@ public class ArrayBagTester
 		
 		//populate array, make sure isFull() is false
 		//until we have added the maximum amount of elements
-		for (int i = 0; i < ab.size() - 1; i++)
+		for (int i = 0; i < 9; i++)
 		{
 			ab.add(i);
 			assertFalse(ab.isFull());
@@ -100,7 +100,7 @@ public class ArrayBagTester
 			}
 		}
 	}
-
+	
 	@Test
 	public void testInsert()
 	{
@@ -169,7 +169,7 @@ public class ArrayBagTester
 		boolean successful;
 		
 		//fill the bag
-		for (int i = 0; i < 10; i++) {
+		for (int i = 9; i >= 0; i--) {
 			ab.add(i);
 		}
 		
@@ -177,7 +177,7 @@ public class ArrayBagTester
 		//following items have moved up
 		successful = ab.remove(3);
 		assertTrue(successful);
-		assertEquals((int)ab.get(4), 4);
+		assertEquals((int)ab.get(3), 4);
 		
 		//remove the 0 and check that all
 		//following items have moved up
@@ -213,7 +213,7 @@ public class ArrayBagTester
 		
 		//try to get each element
 		for (int i = 0; i < 10; i++) {
-			assertEquals((int)ab.get(i), i);
+			assertEquals((int)ab.get(i), 9-i);
 		}
 		
 		//try to get a -1 which is not in the bag
