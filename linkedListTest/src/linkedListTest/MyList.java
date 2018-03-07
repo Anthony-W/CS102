@@ -1,57 +1,95 @@
 package linkedListTest;
 
-public class MyList<Item> {
-	protected MyNode<Item> head = null;
-	protected MyNode<Item> tail = null;
-	
-	public MyList() {
-		head = new MyNode<Item>(null);
-		tail = new MyNode<Item>(head);
-	}
-	
-	void add(Item c) {
-		/*if (c instanceof Comparable) {
-			MyNode<Item> current = head.next;
-			Comparable C = (Comparable)c;
-			while (current != tail) {
-				int comparison = C.compareTo((Comparable)current.data);
-			}
+public class MyList<Item>
+{
+	private Node head = null;
+	private Node tail = null;
+
+	private class Node
+	{
+		private Item _item;
+		private Node _next;
+
+		private Node(Item item)
+		{
+			_item = item;
+			_next = null;
 		}
-		else
-		{*/
-			new MyNode<Item>(c, head);
-		//}
-		
 	}
-	
-	Item pop() {
-		MyNode node = head.next;
-		head.next = node.next;
-		return (Item) node.data;
+
+	public MyList()
+	{
+		head = new Node(null);
+		tail = new Node(null);
+		head._next = tail;
 	}
-	
-	int size() {
+
+	public void add(Item c)
+	{
+		Node newNode = new Node(c);
+		newNode._next = head._next;
+		head._next = newNode;
+	}
+
+	public Item pop()
+	{
+		Node node = head._next;
+		head._next = node._next;
+		return (Item) node._item;
+	}
+
+	public int size()
+	{
 		int size = 0;
-		MyNode<Item> current = head.next;
-		
-		while(current != tail) {
+		Node current = head._next;
+
+		while (current != tail)
+		{
 			size++;
-			current = current.next;
+			current = current._next;
 		}
 		return size;
 	}
-	
-	@Override
-	public String toString() {
-		String output = "[ ";
-		MyNode<Item> current = head.next;
+
+	public boolean contains(Item item)
+	{
+		Node current = head._next;
 		
-		while(current != tail) {
-			output += current.data.toString();
-			output += ", ";
-			current = current.next;
+		while (current != tail)
+		{
+			if (current._item.equals(item)) return true;
+			current = current._next;
 		}
-		output = output.substring(0,output.length()-2);
+		
+		return false;
+	}
+
+/*
+	public boolean contains(Item item)
+	{
+		return contains(item, head._next);
+	}
+	
+	private boolean contains(Item item, Node node)
+	{
+		if (node == tail) return false;
+		else if (node._item.equals(item)) return true;
+		else return contains(item, node._next);
+	}
+*/
+	@Override
+	public String toString()
+	{
+		String output = "[ ";
+		Node current = head._next;
+
+		while (current != tail)
+		{
+			output += current._item;
+			current = current._next;
+			if (current != tail)
+				output += ", ";
+		}
 		return output + " ]";
 	}
 }
