@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args)
 	{
-		testIsBalanced();
+		testToBinary();
 	}
 	
 	private static void testToBinary()
@@ -34,15 +34,13 @@ public class Main {
 		Stack<Integer> tracker = new Stack<Integer>();
 		String result = "";
 		
-		//convert
-		while(input > 0)
+		//conversion
+		do
 		{
 			tracker.push(input % 2);
 			input /= 2;
 		}
-		
-		//case for empty stack
-		if (tracker.isEmpty()) result = "0";
+		while(input > 0);
 		
 		//populate result in correct order
 		while (!tracker.isEmpty())
@@ -56,16 +54,25 @@ public class Main {
 	public static boolean isBalanced(String str)
 	{
 		Stack<Character> s = new Stack<Character>();
+		
+		//loop through the string
 		for(int i = 0; i < str.length(); i++)
 		{
 			char c = str.charAt(i);
+			
+			//found an open parenthesis
 			if (c == '(') s.push(c);
+			
+			//found a closed parenthesis
 			else if (c == ')')
 			{
+				//found a close parenthesis with no open
 				if (s.isEmpty()) return false;
+				
 				else s.pop();
 			}
 		}
+		
 		if (s.isEmpty()) return true;
 		return false;
 	}
