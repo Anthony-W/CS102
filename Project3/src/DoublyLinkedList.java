@@ -28,7 +28,7 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 public class DoublyLinkedList<Item> implements Iterable<Item> {
-    private int n;        // number of elements on list
+    //private int n;        // number of elements on list
     private Node<Item> pre;     // sentinel before first item
     private Node<Item> post;    // sentinel after last item
 
@@ -46,8 +46,19 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
         private Node<Item> prev;
     }
 
-    public boolean isEmpty()    { return n == 0; }
-    public int size()           { return n;      }
+    public boolean isEmpty()    { return size() == 0; }
+    
+    public int size()          
+    {
+    	Node<Item> current = pre.next;
+    	int size = 0;
+    	while (current != post)
+    	{
+    		size++;
+    		current = current.next;
+    	}
+    	return size;
+    }
 
     // add the item to the list
     public void add(Item item) {
@@ -58,19 +69,40 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
         x.prev = last;
         post.prev = x;
         last.next = x;
-        n++;
     }
+    
+    
 
-    public ListIterator<Item> iterator()  { return new DoublyLinkedListIterator(); }
+    public ListIterator<Item> iterator(int i)  { return new DoublyLinkedListIterator(i); }
+    public ListIterator<Item> begin()  { return iterator(0); }
+    public ListIterator<Item> end()  { return iterator(size()); }
+    public ListIterator<Item> iterator()  { return begin(); }
 
     // assumes no calls to DoublyLinkedList.add() during iteration
     private class DoublyLinkedListIterator implements ListIterator<Item> {
-        private Node<Item> current      = pre.next;  // the node that is returned by next()
+        private Node<Item> current;  // the node that is returned by next()
         private Node<Item> lastAccessed = null;      // the last node to be returned by prev() or next()
                                                // reset to null upon intervening remove() or add()
-        private int index = 0;
+        private int index;
+        
+        public DoublyLinkedListIterator()
+        {
+        	this(0);
+        }
+        
+        public DoublyLinkedListIterator(int index)
+        {
+        	if (index < 0 || index > size()) throw new IndexOutOfBoundsException(index + " is not a valid index in this list.");
+        	
+        	this.current = pre;
+        	for (int i = 0; i <= index; i++)
+        	{
+        		current = current.next;
+        	}
+        	this.index = index;
+        }
 
-        public boolean hasNext()      { return index < n; }
+        public boolean hasNext()      { return index < size(); }
         public boolean hasPrevious()  { return index > 0; }
         public int previousIndex()    { return index - 1; }
         public int nextIndex()        { return index;     }
@@ -107,7 +139,6 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
             Node<Item> y = lastAccessed.next;
             x.next = y;
             y.prev = x;
-            n--;
             if (current == lastAccessed)
                 current = y;
             else
@@ -125,9 +156,13 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
             y.next = z;
             z.prev = y;
             y.prev = x;
-            n++;
             index++;
             lastAccessed = null;
+        }
+        
+        public int size()
+        {
+        	return DoublyLinkedList.this.size();
         }
 
     }
@@ -141,8 +176,9 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 
     // a test client
     public static void main(String[] args) {
-        int n  = Integer.parseInt(args[0]);
-
+        //int n  = Integer.parseInt(args[0]);
+    	int n=10;
+    	
         // add elements 1, ..., n
         StdOut.println(n + " random integers between 0 and 99");
         DoublyLinkedList<Integer> list = new DoublyLinkedList<Integer>();
