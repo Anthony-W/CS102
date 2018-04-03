@@ -9,14 +9,29 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-		queue.add(1);
-		queue2.add(1);
+		queue.add(100);
+		queue.add(150);
+		queue2.add(100);
+		queue2.add(150);
 		System.out.println(equalQueues(queue, queue2));
 	}
 
-	public static boolean equalQueues(Queue first, Queue second)
+	public static <T extends Comparable<T>> boolean equalQueues(Queue<T> first, Queue<T> second)
 	{
-		return (first.equals(second));
+		if (first.size() != second.size()) return false;
+		
+		int size = first.size();
+		boolean equal = true;
+		
+		for (int i = 0; i < size; i++)
+		{
+			if (!first.peek().equals(second.peek())) equal = false;
+			
+			first.add(second.remove());
+			second.add(first.remove());
+		}
+		
+		return equal;
 	}
 	
 	public static int size()
