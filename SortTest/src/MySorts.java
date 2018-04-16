@@ -8,7 +8,13 @@ public class MySorts
 	
 	private static <T extends Comparable<T>> void QuickSort(T[] list, int front, int end)
 	{
-		if (front-end <= 1) return;
+		System.out.println(front + " " + end);
+		for(int i = 0; i < list.length; i++) {
+			System.out.print(list[i] + " ");
+		}
+		System.out.println("");
+		
+		if (end-front <= 1) return;
 		
 		int originalFront = front;
 		int originalEnd = end;
@@ -17,20 +23,25 @@ public class MySorts
 		
 		while(front <= end)
 		{
-			while(front <= end && list[front].compareTo(mid) <= 0) front++;
-			while(front < end && list[end].compareTo(mid) >= 0) end--;
+			while(front != end && list[front].compareTo(mid) <= 0) front++;
+			while(front != end && list[end].compareTo(mid) >= 0) end--;
 			
-			T temp = list[front];
-			list[front] = list[end];
-			list[end] = temp;
+			if (front < end)
+			{
+				T temp = list[front];
+				list[front] = list[end];
+				list[end] = temp;
+			}
+			else
+			{
+				T temp = list[front];
+				list[front] = mid;
+				list[originalEnd-1] = temp;
+				break;
+			}
 		}
 		
-		T temp = list[front];
-		list[front] = mid;
-		list[originalEnd-1] = temp;
-		
-		
-		QuickSort(list, originalFront, end-1);
+		QuickSort(list, originalFront, end);
 		QuickSort(list, front+1, originalEnd);
 	}
 }
