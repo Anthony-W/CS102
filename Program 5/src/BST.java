@@ -83,11 +83,20 @@ public class BST<Key extends Comparable<Key>, Value> {
     public BST() {
     }
     
+    /**
+     * runs a pre-order traversal on this BST
+     * @return pre-order iterable list of all keys in the BST
+     */
     public Iterable<Key> preOrder()
     {	    	
     	return preOrder(root);
     }
     
+    /**
+     * runs a pre-order traversal on the subtree rooted at x
+     * @param x node to use as a root
+     * @return pre-order iterable list of all keys in the subtree
+     */
     private Queue<Key> preOrder(Node x)
     {
     	Queue<Key> keys = new Queue<Key>();
@@ -97,18 +106,27 @@ public class BST<Key extends Comparable<Key>, Value> {
     	Queue<Key> left = preOrder(x.left);
     	Queue<Key> right = preOrder(x.right);
     	
+    	keys.enqueue(x.key);
     	while(!left.isEmpty()) keys.enqueue(left.dequeue());
     	while(!right.isEmpty()) keys.enqueue(right.dequeue());
-    	keys.enqueue(x.key);
     	
     	return keys;
     }
     
+    /**
+     * runs a post-order traversal on this BST
+     * @return post-order iterable list of all keys in the BST
+     */
     public Iterable<Key> postOrder()
     {	    	
     	return postOrder(root);
     }
     
+    /**
+     * runs a post-order traversal on the subtree rooted at x
+     * @param x node to use as a root
+     * @return post-order iterable list of all keys in the subtree
+     */
     private Queue<Key> postOrder(Node x)
     {
     	Queue<Key> keys = new Queue<Key>();
@@ -118,18 +136,27 @@ public class BST<Key extends Comparable<Key>, Value> {
     	Queue<Key> left = postOrder(x.left);
     	Queue<Key> right = postOrder(x.right);
     	
-    	keys.enqueue(x.key);
     	while(!left.isEmpty()) keys.enqueue(left.dequeue());
     	while(!right.isEmpty()) keys.enqueue(right.dequeue());
+    	keys.enqueue(x.key);
     	
     	return keys;
     }
     
+    /**
+     * runs a in-order traversal on this BST
+     * @return in-order iterable list of all keys in the BST
+     */
     public Iterable<Key> inOrder()
     {	    	
     	return inOrder(root);
     }
     
+    /**
+     * runs a in-order traversal on the subtree rooted at x
+     * @param x node to use as a root
+     * @return in-order iterable list of all keys in the subtree
+     */
     private Queue<Key> inOrder(Node x)
     {
     	Queue<Key> keys = new Queue<Key>();
@@ -146,6 +173,9 @@ public class BST<Key extends Comparable<Key>, Value> {
     	return keys;
     }
     
+    /**
+     * Wrapper class to hold both height and imbalance
+     */
     private class Pair
     {
     	public int height, maxImbalance;
@@ -157,12 +187,19 @@ public class BST<Key extends Comparable<Key>, Value> {
     	}
     }
     
+    /**
+     * @return the maximum imbalance of this BST
+     */
     public int maxImbalance()
     {
     	return maxImbalance(root).maxImbalance;
     }
     
-    private Pair maxImbalance(Node x) //TODO: NOT WORKING
+    /**
+     * @param x node to use as root
+     * @return Pair containing the height and maximum imbalance of the subtree rooted at x
+     */
+    private Pair maxImbalance(Node x)
     {
     	//both the children are null
     	if (x.left == null & x.right == null) return new Pair(0, 0);
@@ -170,9 +207,18 @@ public class BST<Key extends Comparable<Key>, Value> {
     	//both the children exist
     	if (x.left != null && x.right != null)
     	{
+    		//get the height and imbalance of both children
     		Pair left = maxImbalance(x.left);
         	Pair right = maxImbalance(x.right);
-    		return new Pair(Math.max(left.height, right.height)+1, Math.max(Math.max(left.maxImbalance, right.maxImbalance), Math.abs(left.height - right.height)));
+        	
+        	//calculate the height of this node
+        	int newHeight = Math.max(left.height, right.height)+1;
+        	
+        	//calculate the max imbalance of this subtree
+        	int oldMaxImbalance = Math.max(left.maxImbalance, right.maxImbalance);
+        	int newMaxImbalance = Math.max(oldMaxImbalance, Math.abs(left.height - right.height));
+        	
+    		return new Pair(newHeight, newMaxImbalance);
     	}
     	
     	//only the right child exists
@@ -187,6 +233,9 @@ public class BST<Key extends Comparable<Key>, Value> {
 		return new Pair(left.height+1, left.height+1);
     }
     
+    /**
+     * @return reversed copy of this BST
+     */
     public BST<Key, Value> reverse()
     {
     	//create a new BST
@@ -199,6 +248,12 @@ public class BST<Key extends Comparable<Key>, Value> {
     	return reversedTree;
     }
     
+    /**
+     * copy node to its reversed location and reverse its children
+     * 
+     * @param originalNode current node from the original BST
+     * @param newNode node from reversed BST corresponding to originalNode
+     */
     private void reverse(Node originalNode, Node newNode)
     {
     	//base case: no need to copy a null node
@@ -218,11 +273,19 @@ public class BST<Key extends Comparable<Key>, Value> {
     	reverse(originalNode.left, newNode.right);
     }
     
+    /**
+     * @return whether or not the tree is symmetric
+     */
     public boolean isSymmetric()
     {
     	return isSymmetric(root) >= 0;
     }
     
+    /**
+     * 
+     * @param x node to use as root
+     * @return whether or not the subtree rooted at x is symmetric
+     */
     private int isSymmetric(Node x)
     {
     	if (x == null) return 0;
@@ -236,6 +299,9 @@ public class BST<Key extends Comparable<Key>, Value> {
     	return -1;
     }
 
+    
+    
+    
     /**
      * Returns true if this symbol table is empty.
      * @return {@code true} if this symbol table is empty; {@code false} otherwise
